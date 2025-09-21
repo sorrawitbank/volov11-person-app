@@ -12,6 +12,15 @@ model = YOLO("weights/yolo11n.pt")
 # Upload image
 uploaded_image = st.file_uploader("Upload an image (jpg, png)", type=["jpg", "jpeg", "png"])
 
+def count_items_dict(items_index_list):
+  count_items = {}
+  for item in items_index_list:
+    if model.names[item] not in count_items:
+      count_items[model.names[item]] = 1
+    else:
+      count_items[model.names[item]] += 1
+  return count_items
+
 if uploaded_image is not None:
 	# Show original image
 	st.image(uploaded_image , caption="Uploaded Image", use_container_width=True)
@@ -30,10 +39,9 @@ if uploaded_image is not None:
 	st.success("Detection completed!")
 
 	# Extract detection results
-	boxes = results[0].boxes
-	class_ids = boxes.cls.cpu().numpy().astype(int)
-	class_names = [model.names[i] for i in class_ids]
+	items_index = results[0].boxes.cls.cpu().numpy().astype(int)
+	count_items = count_items_dict(items_index)
 
-	# Count people
-	person_count = class_names.count("person")
-	st.write(f"Number of people detected: **{person_count}**")
+	# Count item
+	for item, count in count_items_dict.items() :
+		st.write(f"Number of {item} detected: **{count}**")
