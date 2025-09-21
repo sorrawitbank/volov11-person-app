@@ -43,5 +43,5 @@ if uploaded_image is not None:
 	count_items = count_items_dict(items_index)
 
 	# Count item
-	for item, count in count_items_dict.items() :
+	for item, count in count_items.items() :
 		st.write(f"Number of {item} detected: **{count}**")
