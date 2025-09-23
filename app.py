@@ -14,14 +14,14 @@ model = YOLO("weights/fruit_model1_best.pt")
 uploaded_image = st.file_uploader("Upload an image (jpg, png)", type=["jpg", "jpeg", "png"])
 
 def count_items_dict(items_index_list):
-  items_index_list = np.sort(items_index_list)
-  count_items = {}
-  for item in items_index_list:
-    if model.names[item] not in count_items:
-      count_items[model.names[item]] = 1
-    else:
-      count_items[model.names[item]] += 1
-  return count_items
+	items_index_list = np.sort(items_index_list)
+	count_items = {}
+	for item in items_index_list:
+		if model.names[item] not in count_items:
+			count_items[model.names[item]] = 1
+		else:
+			count_items[model.names[item]] += 1
+	return count_items
 
 if uploaded_image is not None:
 	# Show original image
