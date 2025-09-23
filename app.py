@@ -7,7 +7,7 @@ st.title("YOLO Image Detection App :)")
 st.write("**Fruit Detection:** Apple, Banana, Orange")
 
 # Load YOLO model
-model = YOLO("fruit_model1_best.pt")
+model = YOLO("weights/fruit_model1_best.pt")
 
 # Upload image
 uploaded_image = st.file_uploader("Upload an image (jpg, png)", type=["jpg", "jpeg", "png"])
