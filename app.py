@@ -4,15 +4,16 @@ from PIL import Image
 import numpy as np
 
 st.title("YOLO Image Detection App :)")
+st.write("**Fruit Detection:** Apple, Banana, Orange")
 
 # Load YOLO model
-# model = YOLO("runs/detect/train73/weights/best.pt")
-model = YOLO("weights/yolo11n.pt")
+model = YOLO("fruit_model1_best.pt")
 
 # Upload image
 uploaded_image = st.file_uploader("Upload an image (jpg, png)", type=["jpg", "jpeg", "png"])
 
-def count_items_dict(items_index_list):
+def count_items(items_index_list):
+  items_index_list = np.sort(items_index_list)
   count_items = {}
   for item in items_index_list:
     if model.names[item] not in count_items:
@@ -44,4 +45,4 @@ if uploaded_image is not None:
 
 	# Count item
 	for item, count in count_items.items() :
-		st.write(f"Number of {item} detected: **{count}**")
+		st.write(f"Number of *{item}* detected: **{count}**")
