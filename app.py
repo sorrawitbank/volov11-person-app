@@ -24,7 +24,7 @@ def count_items_dict(items_index_list):
 
 if uploaded_image is not None:
 	# Show original image
-	st.image(uploaded_image, caption="Uploaded Image", use_container_width=True)
+	st.image(uploaded_image, caption="Uploaded Image", width='stretch')
 
 	# Read image and convert to numpy array
 	image = Image.open(uploaded_image)
@@ -35,7 +35,8 @@ if uploaded_image is not None:
 
 	# Draw results on image
 	result_image = results[0].plot()
-	st.image(result_image, caption="YOLO Detection Result", use_container_width=True)
+	result_image = Image.fromarray(result_image)  # Fix color for Streamlit display
+	st.image(result_image, caption="YOLO Detection Result", width='stretch')
 	st.success("Detection completed!")
 
 	# Extract detection results
