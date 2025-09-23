@@ -27,7 +27,7 @@ if uploaded_image is not None:
 	# Show original image
 	st.image(uploaded_image, caption="Uploaded Image", width='stretch')
 
-	# Read image and convert to numpy array
+	# Read image
 	image = Image.open(uploaded_image)
 
 	# Run YOLO inference
