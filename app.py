@@ -24,25 +24,30 @@ def count_items_dict(items_index_list):
 
 if uploaded_image is not None:
 	# Show original image
-	st.image(uploaded_image, caption="Uploaded Image", width='stretch')
+	st.image(uploaded_image, caption="Uploaded Image", use_container_width=True)
 
 	# Read image and convert to numpy array
 	image = Image.open(uploaded_image)
-	image_np = np.array(image)
 
 	# Run YOLO inference
 	st.info("Running YOLO object detection...")
-	results = model.predict(image_np, conf=0.6)
+	results = model.predict(image, conf=0.6)
 
 	# Draw results on image
 	result_image = results[0].plot()
-	st.image(result_image, caption="YOLO Detection Result", width='stretch')
+	st.image(result_image, caption="YOLO Detection Result", use_container_width=True)
 	st.success("Detection completed!")
 
 	# Extract detection results
 	items_index = results[0].boxes.cls.cpu().numpy().astype(int)
-	count_items = count_items_dict(items_index)
 
-	# Count item
-	for item, count in count_items.items() :
-		st.write(f"Number of *{item}* detected: **{count}**")
+	# Check object
+	if len(items_index) == 0:
+		st.warning("No objects were detected in the image.")
+	else:
+		# Count item
+		count_items = count_items_dict(items_index)
+
+		# Show result
+		for item, count in count_items.items():
+			st.write(f"Number of *{item}* detected: **{count}**")
