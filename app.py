@@ -12,7 +12,7 @@ model = YOLO("weights/fruit_model1_best.pt")
 # Upload image
 uploaded_image = st.file_uploader("Upload an image (jpg, png)", type=["jpg", "jpeg", "png"])
 
-def count_items(items_index_list):
+def count_items_dict(items_index_list):
   items_index_list = np.sort(items_index_list)
   count_items = {}
   for item in items_index_list:
