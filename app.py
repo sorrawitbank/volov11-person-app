@@ -1,6 +1,7 @@
 import streamlit as st
 from ultralytics import YOLO
 from PIL import Image
+import cv2
 import numpy as np
 
 st.title("YOLO Image Detection App :)")
@@ -35,7 +36,7 @@ if uploaded_image is not None:
 
 	# Draw results on image
 	result_image = results[0].plot()
-	result_image = Image.fromarray(result_image)  # Fix color for Streamlit display
+	result_image = cv2.cvtColor(result_image, cv2.COLOR_BGR2RGB)  # Convert to RGB
 	st.image(result_image, caption="YOLO Detection Result", width='stretch')
 	st.success("Detection completed!")
 
